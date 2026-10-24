@@ -23,21 +23,21 @@ next 12 months, and how confident that answer is.
 
 Everything runs in your browser. Your usage data is never uploaded anywhere.
 
-> **Status: version 2.0 beta (public redesign).** A guided flow for the public: who sends your bill, where to
-> find your Green Button file, a few questions, then the result first, with the evidence one level down.
-> Developer details are under *How we know*. Desktop only.
-> Verification: `docs/verification-v2.0.md`. Usability testing: `docs/usability-test-plan.md`.
->
-> **Previously, version 1.0.** Open `dist/index.html` in a browser: load a file, see the data-quality report,
-> your history priced under each plan, which plan is likely cheapest over the next 12 months, check a bill
-> down to the amount due, and run the app’s own tests in the **Checks and sources** tab.
-> Delivery rates for the Alectra PowerStream zone are still to be entered.
-> Not affiliated with the Ontario Energy Board or any utility. Results are estimates; check them against your bill.
-
 ## Using it
 
-Download `dist/index.html` and open it in Chrome, Edge, Firefox or Safari. It works offline, from your own
-computer; there is nothing to install. Then drop in the Green Button XML file from your utility.
+**Online (easiest):** open **https://electricity-plans.github.io/ontario-hydro-plan-compare/** in Chrome, Edge,
+Firefox or Safari. There's nothing to install and no sign-up. The app guides you through getting your Green Button
+usage file from your utility's website (about 5 minutes), then shows your result. Not ready to download your file?
+Choose **See a sample result**.
+
+Your file is read by your own browser and is **never uploaded**. The website only delivers the page; GitHub, which
+hosts it, may keep standard visit logs, as any website does.
+
+**Offline:** download `index.html` from the latest [release](../../releases/latest) and open it in your browser. It
+works without an internet connection, from your own computer.
+
+Downloading your usage file is easiest on a computer. The app also works on tablets and phones, which is handy for
+the sample result or a second look at your own.
 
 ## Why
 
