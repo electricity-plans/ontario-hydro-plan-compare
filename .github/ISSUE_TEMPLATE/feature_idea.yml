@@ -1,0 +1,24 @@
+name: Feature idea
+description: Suggest an improvement.
+title: "Idea: "
+labels: ["idea"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Ideas are welcome! This is a hobby project, so not every idea can be built, and some may be outside what the tool covers: households buying electricity from their local utility on the Ontario Energy Board's price plans. Retailer contracts, sub-metered condos, solar and businesses are out of scope for now.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What would you like to do that you can't now?
+      description: Describing the problem helps more than describing a solution.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Your idea (optional)
+  - type: textarea
+    id: why
+    attributes:
+      label: Who else might this help? (optional)

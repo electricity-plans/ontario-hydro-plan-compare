@@ -1,0 +1,9 @@
+# Blank issues are off, so every report starts from a template with the privacy reminder.
+blank_issues_enabled: false
+contact_links:
+  - name: Ask a question
+    url: https://github.com/electricity-plans/ontario-hydro-plan-compare/discussions/categories/q-a
+    about: Questions about how the app works, or about your result.
+  - name: Report a security problem privately
+    url: https://github.com/electricity-plans/ontario-hydro-plan-compare/security/advisories/new
+    about: Please don't open a public issue for security problems.

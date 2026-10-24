@@ -1,0 +1,37 @@
+# Runs on every push and pull request. No secrets and no personal files are needed: all test data is made up.
+name: tests
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: dist/index.html is the build of the current sources
+        run: |
+          BUILD_DATE=$(grep -oE 'Version [^,<]+, [0-9]{4}-[0-9]{2}-[0-9]{2}' dist/index.html | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}$')
+          BUILD_DATE="$BUILD_DATE" node tools/build.mjs
+          git diff --exit-code -- dist/ || { echo "dist/index.html is out of date: run node tools/build.mjs and commit it"; exit 1; }
+      - name: Unit tests (Node)
+        run: node tests/run.mjs
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Playwright and lxml
+        run: |
+          pip install playwright==1.56.0 lxml
+          python -m playwright install --with-deps chromium
+      - name: Browser tests
+        run: python tests/browser/regression.py
+      - name: Schema check and independent Python reference
+        run: |
+          node tests/make-fixtures.mjs /tmp/fixtures
+          # two files are broken on purpose (they test that bad files are refused), so they are skipped here
+          for f in /tmp/fixtures/*.xml; do case "$(basename $f)" in synth-not-espi.xml|val-bad-value.xml) ;; *) python reference/validate_schema.py "$f" ;; esac; done
+          python reference/reference_analysis.py /tmp/fixtures/synth-alectra-shape.xml /tmp/ref.json
+          cmp /tmp/ref.json tests/expected/synth-alectra-shape.json

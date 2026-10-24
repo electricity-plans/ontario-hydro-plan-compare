@@ -1,0 +1,33 @@
+name: Correction (prices or download steps)
+description: A price, rebate, holiday or utility download step in the app looks wrong or out of date.
+title: "Correction: "
+labels: ["tariff-data"]
+body:
+  - type: dropdown
+    id: what
+    attributes:
+      label: What needs correcting?
+      options:
+        - An electricity price or rebate rate
+        - A holiday date
+        - A utility's charges (delivery, regulatory, loss factor)
+        - A utility's download steps
+    validations:
+      required: true
+  - type: textarea
+    id: detail
+    attributes:
+      label: What the app says, and what it should say
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Source
+      description: A link to the OEB page, regulation or utility page that shows the right figure. (For download steps, the menu names you clicked are enough.)
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        Please don't post screenshots of your account or bill: the menu names or a link are all that's needed.

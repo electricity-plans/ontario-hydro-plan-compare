@@ -1,0 +1,58 @@
+name: My utility's file doesn't work
+description: The app can't read your Green Button file, or marks it "not checked yet".
+title: "Utility file: "
+labels: ["utility-support"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        These reports help the app support more Ontario utilities. Thank you!
+
+        **Please don't attach your file.** A year of readings shows when someone is usually home. The app can make a description of your file that contains **no readings and no text from the file**.
+  - type: input
+    id: utility
+    attributes:
+      label: Your utility
+      placeholder: "e.g. Hydro One, Toronto Hydro, Elexicon"
+    validations:
+      required: true
+  - type: dropdown
+    id: what
+    attributes:
+      label: What happened?
+      options:
+        - The app couldn't read the file
+        - The app read it, but says it hasn't been checked against a bill yet
+        - The result looks wrong compared with my bill
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: File description from the app
+      description: In the app, open "Technical checks", then "Report a compatibility issue", then "Copy the description", and paste it here. (If the file couldn't be opened at all, use "How the estimate works", then "Report a problem" instead.)
+      render: markdown
+    validations:
+      required: true
+  - type: textarea
+    id: download
+    attributes:
+      label: How you downloaded the file (optional)
+      description: The menu names you clicked on your utility's website. This helps improve the app's download instructions for everyone.
+      placeholder: "My Account > Usage > Green Button > Download my data > XML, 24 months"
+  - type: dropdown
+    id: bill
+    attributes:
+      label: Did you try "Check my bill"?
+      options:
+        - "Yes, and it matched"
+        - "Yes, and some lines didn't match"
+        - "No"
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy
+      options:
+        - label: I haven't attached my file or bill, or posted any account, address or meter details.
+          required: true

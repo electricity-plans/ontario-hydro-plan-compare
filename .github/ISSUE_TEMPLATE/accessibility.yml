@@ -1,0 +1,29 @@
+name: Accessibility problem
+description: Something is hard to use with a keyboard, screen reader, zoom, or other assistive technology.
+title: "Accessibility: "
+labels: ["accessibility"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you: these reports make the app better for everyone. Please don't include your bill or usage file. "See a sample result" is perfect for describing the problem.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What was hard, or didn't work?
+      description: Where in the app, and what happened.
+    validations:
+      required: true
+  - type: input
+    id: setup
+    attributes:
+      label: What were you using?
+      description: For example, the screen reader and its version, keyboard only, browser zoom level, or another tool.
+      placeholder: "e.g. NVDA 2026.3 with Chrome; or keyboard only in Firefox"
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: App version
+      description: Shown at the bottom of every page.

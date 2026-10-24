@@ -1,0 +1,58 @@
+name: Bug report
+description: Something in the app looks wrong, or doesn't work.
+title: "Bug: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this. This is a hobby project, so replies and fixes aren't guaranteed, but every report is read.
+
+        **GitHub issues are public.** Please **never attach your bill or your usage (Green Button) file**, even with your name removed, and never post account numbers, addresses or meter numbers.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you see, and what did you expect to see instead?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: What did you click or choose, in order? Using "See a sample result" instead of your own file is ideal if the problem shows up there too.
+      placeholder: |
+        1. Chose "My local utility"
+        2. Opened my file
+        3. ...
+    validations:
+      required: true
+  - type: input
+    id: codes
+    attributes:
+      label: Check codes
+      description: In the app, open "How the estimate works", then "Report a problem", then "See exactly what will be sent". Copy the "Check codes" line here. It contains no personal details.
+      placeholder: "e.g. gaps, duplicates"
+  - type: input
+    id: version
+    attributes:
+      label: App version
+      description: Shown at the bottom of every page.
+      placeholder: "e.g. Version 2.0.0, 2026-11-15"
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser
+      options:
+        - Chrome
+        - Edge
+        - Firefox
+        - Safari
+        - Other
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy
+      options:
+        - label: I haven't attached or pasted my bill, my usage file, or any account, address or meter details.
+          required: true
