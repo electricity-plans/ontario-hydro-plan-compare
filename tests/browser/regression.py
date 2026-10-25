@@ -288,6 +288,8 @@ async def main():
             link = await pg.evaluate("(() => { const a = [...document.querySelectorAll('footer a')].find(x => x.textContent.includes('Open source')); return a && [a.getAttribute('href'), a.target, a.rel]; })()")
             check('Privacy: the GitHub link opens in a new tab and carries nothing extra', link == ['https://github.com/electricity-plans/ontario-hydro-plan-compare', '_blank', 'noopener noreferrer'], str(link))
             await pg.click('header a.lock'); await pg.wait_for_selector('#h-privacy')
+            offline = await pg.evaluate("(() => [...document.querySelectorAll('#main a')].filter(a => /github\\.com\\/electricity-plans\\/ontario-hydro-plan-compare(\\/releases\\/latest)?$/.test(a.href)).map(a => [a.textContent.trim(), a.target, a.rel]))()")
+            check('Privacy: the privacy section links to the code and to the offline download, in new tabs', any(t == 'GitHub' for t, _, _ in offline) and any(t.startswith('Download') for t, _, _ in offline) and all(tg == '_blank' and r == 'noopener noreferrer' for _, tg, r in offline), str(offline))
             check('Privacy: "Your file stays on this computer – How?" opens the privacy explanation', await pg.evaluate("document.activeElement.id") == 'h-privacy' and 'connect-src' in (await pg.inner_text('#main')))
         await safe('Privacy', privacy)
         for name, fn in [('UX navigation', ux_nav), ('UX answers', ux_answers), ('UX close result', ux_close), ('UX file screen', ux_file), ('UX narrow screens', ux_narrow)]:

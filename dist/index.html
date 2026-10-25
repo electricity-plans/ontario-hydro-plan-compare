@@ -3019,8 +3019,15 @@ function slim(a) {
         <p><b>Check it yourself:</b></p>
         <ul><li>Load this page, then disconnect from the internet. Open your file: everything still works.</li>
           <li>Open your browser’s developer tools (F12), choose the <b>Network</b> tab, then open your file: no requests are made.</li>
-          <li>Read the code, which is all public on GitHub.</li></ul>
-        <p class="small muted">What does leave your computer: when you visit the online version, GitHub, which hosts the page, receives the usual information any website gets, such as your IP address. Your file and your results never do. The offline copy from the project’s Releases page doesn’t need even that.</p>
+          <li>Read the code, which is all public on <a href="${REPO}" target="_blank" rel="noopener noreferrer">GitHub</a>.</li></ul>
+        <p class="small muted">What does leave your computer: when you visit the online version, GitHub, which hosts the page, receives the usual information any website gets, such as your IP address. Your file and your results never do.</p>
+        <h3 class="sec" style="font-size:var(--t-md);margin:var(--s-4) 0 var(--s-2)">Use it completely offline</h3>
+        <p>You can also keep the whole app on your own computer, so it never needs the internet at all:</p>
+        <ol><li><b>Get your Green Button file first.</b> Downloading it from your utility’s website needs the internet, so do this before you go offline.</li>
+          <li><a href="${REPO}/releases/latest" target="_blank" rel="noopener noreferrer">Download <code>index.html</code></a> from the project’s latest release on GitHub.</li>
+          <li>Disconnect from the internet, if you like.</li>
+          <li>Open the downloaded <code>index.html</code> in your browser (double-click it), then choose your Green Button file. It’s the same app, and gives the same results.</li></ol>
+        <p class="small muted">A downloaded copy doesn’t update itself. New versions bring new prices (normally every November 1), fixes and new features, so check for one now and then: compare the version at the bottom of this page with the <a href="${REPO}/releases/latest" target="_blank" rel="noopener noreferrer">latest release</a>. With a GitHub account, you can also choose <b>Watch → Custom → Releases</b> on the project to get an email when one comes out. If a copy’s prices get more than a year old, the app shows a notice.</p>
         <p>Your file is read in this browser tab and never uploaded. Each reading is put in its price period using Ontario time (including daylight saving) and the OEB’s holiday rule, then priced at the OEB’s prices for that period. The 12-month estimate separates car charging from the rest of your use, measures both from your own file, and compares the plans three ways. The utility’s own cost and time-of-use labels in the file are never used for pricing, only as a cross-check.</p>
         <h2 class="sec" style="font-size:var(--t-lg);margin:var(--s-5) 0 var(--s-2)">Known limits</h2>
         <ul><li>The 12-month estimate treats every day as 24 hours, so the two daylight-saving days are approximate. Measured in a worst case (a car charging across the changed hour every night), this moves the yearly gap between plans by about 16 cents.</li>
