@@ -117,8 +117,8 @@ private/    YOUR files (ignored by git): real export, bill figures
   the changed hour every night), this moves the yearly gap between plans by about 16 cents (`tests/dst-measurement.mjs`).
 - **Screens.** Designed for computers, where the usage file is easiest to download. On phones, tablets and at high
   browser zoom the page rearranges into one column, with no sideways scrolling down to 320 CSS pixels (400% zoom on a
-  1280-pixel screen). Automated checks, Lighthouse (100) and axe (0 issues) pass; a screen-reader run-through is still
-  to do, so no claim of full WCAG conformance is made.
+  1280-pixel screen). Automated checks, Lighthouse (100), axe (0 issues) and a full NVDA screen-reader run-through
+  pass. Usability testing is still to come, so no claim of full WCAG conformance is made.
 
 ## Maintaining it
 

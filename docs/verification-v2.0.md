@@ -14,7 +14,7 @@ Goal: the redesign changes how results are shown, never the results themselves.
 | axe DevTools | **Passed**: 0 issues on every screen (October 2026) | Author, axe DevTools for Chrome |
 | Lighthouse accessibility | **Passed**: 100 on every screen, Snapshot and Navigation modes (October 2026) | Author, Chrome DevTools |
 | Keyboard only | Whole flow completed; every focused element has a visible outline | Automated (Playwright keyboard) |
-| NVDA screen reader | **To do** | You (script below) |
+| NVDA screen reader | **Passed**: the full flow with NVDA and Chrome, no issues (October 2026) | Author, NVDA |
 | Colour blindness | Price periods stay distinct under protanopia, deuteranopia, tritanopia | Machado et al. 2009 simulation |
 | Reading level | Every public screen grade 8.3 or below (Flesch-Kincaid) | Automated |
 | Usability test | Plan ready: `docs/usability-test-plan.md` | You, with 5 testers |
