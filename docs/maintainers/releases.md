@@ -9,11 +9,13 @@ The version in `package.json` is the one shown at the bottom of every page, so e
 
 ## Making a release
 
-1. Update `"version"` in `package.json`, and add an entry at the top of `CHANGELOG.md` (template below).
+1. Update `"version"` in `package.json` and the version line near the top of `README.md`, and add an entry at the
+   top of `CHANGELOG.md` (template below).
 2. `node tools/build.mjs` and `node tests/run.mjs`; commit both; push; merge to `main` once CI passes. The Pages
    workflow publishes the app.
-3. **Releases → Draft a new release:** tag `v2.0.0-beta.2` (matching `package.json`), paste the changelog entry,
-   and **attach `dist/index.html`**, so people can save the app and use it offline.
+3. **Releases → Draft a new release:** tag `v2.0.0-beta.2` (matching `package.json`), paste the changelog entry
+   followed by the release footer below, and **attach `dist/index.html`**, so people can save the app and use it
+   offline. Set **Release label** to **None**, not Pre-release, so the README's "latest release" link finds it.
 4. Open the live app and check the version at the bottom of the page.
 
 ### Changelog entry template
@@ -26,6 +28,14 @@ The version in `package.json` is the one shown at the bottom of every page, so e
 - What changed, in plain words (one line each).
 
 **Results may change:** yes/no. If yes: which figures, and why.
+```
+
+### Release footer (end every release description with this)
+
+```
+A free, independent hobby project. Not made by, endorsed by or connected to the Ontario Energy Board, the Government
+of Ontario, or any electricity utility. Results are estimates, not advice, and your utility's bill is always the
+official amount. Please never post your bill or usage file in issues or discussions.
 ```
 
 ## Rolling back
