@@ -62,7 +62,9 @@ a { color: var(--link); text-underline-offset: 2px; }
 .site-head .wrap { display: flex; align-items: center; justify-content: space-between; gap: var(--s-5); padding: var(--s-4) 0; }
 .brand { display: flex; align-items: center; gap: var(--s-3); font: 600 var(--t-lg) var(--display); color: var(--ink); text-decoration: none; background: none; border: 0; padding: 0; cursor: pointer; }
 .brand svg { width: 30px; height: 30px; }
-.lock { display: flex; align-items: center; gap: var(--s-2); color: var(--ink-2); font-size: var(--t-sm); }
+.lock { display: flex; align-items: center; gap: var(--s-2); color: var(--ink-2); font-size: var(--t-sm); text-decoration: none; }
+.lock .lock-how { text-decoration: underline; color: var(--link); }
+.lock:hover .lock-how { text-decoration-thickness: 2px; }
 .lock svg { width: 16px; height: 16px; }
 .strip { height: 6px; background: linear-gradient(90deg, var(--p-overnight) 0 29.17%, var(--p-mid) 29.17% 66.67%, var(--p-on) 66.67% 87.5%, var(--p-mid) 87.5% 95.83%, var(--p-overnight) 95.83%); }
 .narrow-note { display: none; background: var(--warn-bg); color: var(--ink); padding: var(--s-2) var(--s-4); font-size: var(--t-sm); text-align: center; }
@@ -249,7 +251,7 @@ input[type=date]:focus-within, input[type=date]:focus { outline: 3px solid var(-
   .hero h1 { font-size: var(--t-2xl); }
   .subnav { overflow-x: auto; }
   .subnav button { white-space: nowrap; }
-  .lock { display: none; }
+  .lock { font-size: var(--t-xs, 0.8rem); }
   .site-foot nav { flex-wrap: wrap; white-space: normal; }
   .banner { flex-direction: column; }
 }

@@ -277,6 +277,19 @@ async def main():
             fresh = 'prices may be out of date' not in (await pg.inner_text('#main'))
             check('Prices: a visible notice appears when a November update was missed, and not before', late and fresh, f'late {late}, fresh {fresh}')
         await safe('Price freshness', stale_prices)
+        async def privacy():
+            await pg.goto(PAGE)
+            blocked = await pg.evaluate('''() => new Promise(resolve => {
+              document.addEventListener('securitypolicyviolation', e => resolve(e.effectiveDirective), { once: true });
+              fetch('https://example.com/upload', { method: 'POST', body: 'test' }).catch(() => {});
+              setTimeout(() => resolve('not blocked'), 3000);
+            })''')
+            check('Privacy: the browser blocks the page from sending data (connect-src)', blocked == 'connect-src', blocked)
+            link = await pg.evaluate("(() => { const a = [...document.querySelectorAll('footer a')].find(x => x.textContent.includes('Open source')); return a && [a.getAttribute('href'), a.target, a.rel]; })()")
+            check('Privacy: the GitHub link opens in a new tab and carries nothing extra', link == ['https://github.com/electricity-plans/ontario-hydro-plan-compare', '_blank', 'noopener noreferrer'], str(link))
+            await pg.click('header a.lock'); await pg.wait_for_selector('#h-privacy')
+            check('Privacy: "Your file stays on this computer – How?" opens the privacy explanation', await pg.evaluate("document.activeElement.id") == 'h-privacy' and 'connect-src' in (await pg.inner_text('#main')))
+        await safe('Privacy', privacy)
         for name, fn in [('UX navigation', ux_nav), ('UX answers', ux_answers), ('UX close result', ux_close), ('UX file screen', ux_file), ('UX narrow screens', ux_narrow)]:
             await safe(name, fn)
         for name, fn in [('M3 edit', m3_edit), ('M3 error', m3_error), ('M3 cards', m3_cards), ('M3 charging value', m3_perweek), ('M3 partial', m3_partial), ('M3 report', m3_report), ('M3 zero usage', m3_zero), ('M3 pre-ULO', m3_preulo)]:

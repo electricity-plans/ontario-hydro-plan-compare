@@ -62,6 +62,7 @@
     e.preventDefault();
     const v = n.dataset.nav;
     if (job.worker || job.busy) { if (v !== 'file') { cancelJob(); } }   // leaving the file screen while a file loads stops the loading
+    if (v === 'privacy') { go('about', { back: isAside(state.view) ? state.back : state.view }); const h = $('#h-privacy'); if (h) { h.scrollIntoView(); h.focus({ preventScroll: true }); } return; }
     if (v === 'clear') { if (!state.result || confirm('Clear your file and answers from this page and start over?')) { cancelJob(); state = fresh(); go('start'); } return; }
     go(v === 'home' ? 'start' : v, { back: isAside(state.view) ? state.back : state.view });
   });
@@ -138,7 +139,7 @@
       solar: 'With solar panels that send power back to the grid (net metering), your bill works differently, and this tool can’t estimate it correctly yet.',
     }[state.who] || '';
     return `<section class="card" aria-labelledby="h-not" style="max-width:760px"><h1 id="h-not" style="font-size:var(--t-2xl);margin-bottom:var(--s-4)">This tool can’t help with your bill</h1>
-      <p>${esc(why)}</p><p>The Ontario Energy Board explains your options on its <a href="${OEB_CHOICE}" target="_blank" rel="noopener">choosing your electricity price plan</a> page.</p>
+      <p>${esc(why)}</p><p>The Ontario Energy Board explains your options on its <a href="${OEB_CHOICE}" target="_blank" rel="noopener noreferrer">choosing your electricity price plan</a> page.</p>
       <div class="actions"><button class="btn secondary" type="button" data-nav="start">Back</button><button class="btn secondary" type="button" id="demo2">See a sample result instead</button></div></section>`;
   }
   document.addEventListener('click', e => { if (e.target.id === 'demo2') { state.utility = 'other'; loadDemo(); } });
@@ -149,7 +150,7 @@
     const stepsBlock = g ? `<h2 style="font-size:var(--t-xl);margin-bottom:var(--s-2)">Where to find it at ${esc(g.id === 'other' ? 'your utility' : g.name)}</h2>
         <ol class="steps-list">${g.steps.map(s => `<li>${esc(s)}</li>`).join('')}</ol>
         ${g.note ? `<p class="small muted">${esc(g.note)}</p>` : ''}
-        ${g.page ? `<p class="small"><a href="${g.page}" target="_blank" rel="noopener">${esc(g.name)}’s Green Button page</a> (opens in a new tab). Download the file there, then come back to this tab and choose it below.</p>` : '<p class="small muted">Download the file in another tab, then come back here and choose it below.</p>'}`
+        ${g.page ? `<p class="small"><a href="${g.page}" target="_blank" rel="noopener noreferrer">${esc(g.name)}’s Green Button page</a> (opens in a new tab). Download the file there, then come back to this tab and choose it below.</p>` : '<p class="small muted">Download the file in another tab, then come back here and choose it below.</p>'}`
       : `<h2 style="font-size:var(--t-xl);margin-bottom:var(--s-2)">Where to find it</h2>
         <p class="muted">Choose your utility on the left to see where to find the file. If you already have it, open it below.</p>`;
     return `${stepsNav('file')}<h1 id="h-file" style="font-size:var(--t-2xl);margin-bottom:var(--s-2)">Get your usage file</h1>
@@ -464,7 +465,7 @@
         <p class="small muted" style="margin-top:var(--s-3)">Totals include HST and the Ontario Electricity Rebate on the electricity charges, using each month’s rebate rate. Delivery and regulatory charges are left out because they’re the same on every plan.</p>
         <div class="switch-how" style="margin-top:var(--s-6)">
           <div><h2 id="switch" tabindex="-1" style="font-size:var(--t-lg);margin-bottom:var(--s-2)">How to switch</h2><p class="small muted" style="margin:0 0 var(--s-2)">Changes start with a billing period, so the months below are approximate.</p><ul>
-            ${!steps.length ? '<li>Nothing to do. Stay on your current plan.</li>' : `<li>Fill in your utility’s price plan form: <a href="${g.switchUrl}" target="_blank" rel="noopener">${g.id === 'other' ? 'how to switch (Ontario Energy Board)' : `switch plans with ${esc(g.name)}`}</a>.</li>
+            ${!steps.length ? '<li>Nothing to do. Stay on your current plan.</li>' : `<li>Fill in your utility’s price plan form: <a href="${g.switchUrl}" target="_blank" rel="noopener noreferrer">${g.id === 'other' ? 'how to switch (Ontario Energy Board)' : `switch plans with ${esc(g.name)}`}</a>.</li>
             <li>If your utility gets the form at least 10 business days before your next billing period, your new plan starts with that period.</li>${switches}`}
             <li>You can switch back at any time.</li></ul></div>
           <div><h2 style="font-size:var(--t-lg);margin-bottom:var(--s-2)">What could change this</h2><ul>
@@ -738,7 +739,7 @@
     const tiered = (Math.min(m.kwh, th) * pe.tiered.t1 + Math.max(0, m.kwh - th) * pe.tiered.t2) / 100;
     const k = x => kwh(x, 0);
     return `<h3 class="sec">Or check a month with the Ontario Energy Board’s calculator</h3>
-      <p class="muted">The <a href="https://oeb.ca/consumer-information-and-protection/bill-calculator" target="_blank" rel="noopener">OEB bill calculator</a> is separate from this tool. Give it the same amounts and it should show the same electricity charges.</p>
+      <p class="muted">The <a href="https://oeb.ca/consumer-information-and-protection/bill-calculator" target="_blank" rel="noopener noreferrer">OEB bill calculator</a> is separate from this tool. Give it the same amounts and it should show the same electricity charges.</p>
       <label class="field" style="max-width:260px">Month to check<select name="xmonth">${months.map(x => `<option value="${x.month}"${x.month === key ? ' selected' : ''}>${monthName(x.month)}</option>`).join('')}</select></label>
       <ol class="steps-list"><li>Open the OEB bill calculator and choose the residential electricity calculator.</li><li>Pick your utility.</li>
         <li>Choose to enter your usage by time period, and enter these amounts for ${monthName(key)}:
@@ -814,7 +815,7 @@
     let results = [], ms = 0;
     if (mode === 'how') { const t0 = performance.now(); try { results = E.runSuite(); } catch (e) { results = [{ status: 'fail', group: 'Suite', name: 'The test suite could not run', message: e.message }]; } ms = performance.now() - t0; }
     const passed = results.filter(r => r.status === 'pass').length, groups = [...new Set(results.map(r => r.group))];
-    const src = (id, S) => { const x = S[id]; return x ? `<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title)}</a>` : esc(id); };
+    const src = (id, S) => { const x = S[id]; return x ? `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.title)}</a>` : esc(id); };
     const c = v => v.toFixed(1);
     const publicWarning = `<div class="banner warn"><p><b>GitHub issues are public.</b> Check the description before you send it, and remove anything that could identify you. Never attach your bill or your usage file, even with your name removed. Never post account numbers, addresses or meter numbers.</p></div>`;
     const codes = state.error?.codes?.length ? state.error.codes : state.result?.support?.codes || [];
@@ -823,7 +824,7 @@
       <p>Found a mistake, or a file that won’t open? You can report it on GitHub. This is a hobby project, so we can’t promise a reply or a fix.</p>
       ${publicWarning}
       <details><summary>See exactly what will be sent</summary><pre style="white-space:pre-wrap;font-size:var(--t-sm)">${esc(bugBody)}</pre></details>
-      <div class="actions"><a class="btn secondary" target="_blank" rel="noopener" href="${REPO}/issues/new?title=${encodeURIComponent('Problem report')}&body=${encodeURIComponent(bugBody)}">Report a problem on GitHub</a></div></section>`;
+      <div class="actions"><a class="btn secondary" target="_blank" rel="noopener noreferrer" href="${REPO}/issues/new?title=${encodeURIComponent('Problem report')}&body=${encodeURIComponent(bugBody)}">Report a problem on GitHub</a></div></section>`;
     let fileSection = '';
     if (state.result) {
       const { report, support } = state.result, cons = report.consumption, cov = report.coverage;
@@ -841,13 +842,23 @@
           <p>This copies a short description of your file: the utility’s web address, the reading interval, the units and a list of the checks that failed. It never includes your readings or any text from the file.</p>
           ${publicWarning}
           <details><summary>See exactly what will be sent</summary><pre style="white-space:pre-wrap;font-size:var(--t-sm)">${esc(text)}</pre></details>
-          <div class="actions"><button class="btn secondary" type="button" id="fr-copy">Copy the description</button><a class="btn secondary" target="_blank" rel="noopener" href="${REPO}/issues/new?title=${encodeURIComponent('Compatibility issue: Green Button file from ' + (support.profile?.host || 'another utility'))}&body=${encodeURIComponent(text)}">Open a report on GitHub</a></div><p class="small muted" id="fr-msg" aria-live="polite"></p>` : ''}
+          <div class="actions"><button class="btn secondary" type="button" id="fr-copy">Copy the description</button><a class="btn secondary" target="_blank" rel="noopener noreferrer" href="${REPO}/issues/new?title=${encodeURIComponent('Compatibility issue: Green Button file from ' + (support.profile?.host || 'another utility'))}&body=${encodeURIComponent(text)}">Open a report on GitHub</a></div><p class="small muted" id="fr-msg" aria-live="polite"></p>` : ''}
         </section>`;
     }
     if (mode === 'about') return `<div class="stack">
       <div class="actions" style="margin-top:0">${backButton()}</div>
       ${staleNotice()}
       <section class="card" aria-labelledby="h-about"><h1 id="h-about" style="font-size:var(--t-2xl);margin-bottom:var(--s-3)">How the estimate works</h1>
+        <h2 class="sec" style="font-size:var(--t-lg);margin:var(--s-4) 0 var(--s-2)">About this project</h2>
+        <p>Ontario Hydro Plan Compare is free, open-source software (MIT License), made as an independent hobby project. Everything that runs on this page is public, so anyone can check what it does. <a href="${REPO}" target="_blank" rel="noopener noreferrer">See the project on GitHub</a>: the code, how it’s tested, and how to report a problem.</p>
+        <h2 id="h-privacy" tabindex="-1" class="sec" style="font-size:var(--t-lg);margin:var(--s-5) 0 var(--s-2)">Your privacy</h2>
+        <p>Your usage file is opened by your own browser and read on this computer. It is never uploaded: the app has no server, no account and no database, and it doesn’t keep anything after you close the page.</p>
+        <p>Your browser enforces this, so it isn’t just a promise. The page tells the browser to block any attempt to send or fetch data (its security policy includes <code>connect-src 'none'</code> and <code>form-action 'none'</code>), so even a mistake in the app couldn’t upload your file.</p>
+        <p><b>Check it yourself:</b></p>
+        <ul><li>Load this page, then disconnect from the internet. Open your file: everything still works.</li>
+          <li>Open your browser’s developer tools (F12), choose the <b>Network</b> tab, then open your file: no requests are made.</li>
+          <li>Read the code, which is all public on GitHub.</li></ul>
+        <p class="small muted">What does leave your computer: when you visit the online version, GitHub, which hosts the page, receives the usual information any website gets, such as your IP address. Your file and your results never do. The offline copy from the project’s Releases page doesn’t need even that.</p>
         <p>Your file is read in this browser tab and never uploaded. Each reading is put in its price period using Ontario time (including daylight saving) and the OEB’s holiday rule, then priced at the OEB’s prices for that period. The 12-month estimate separates car charging from the rest of your use, measures both from your own file, and compares the plans three ways. The utility’s own cost and time-of-use labels in the file are never used for pricing, only as a cross-check.</p>
         <h2 class="sec" style="font-size:var(--t-lg);margin:var(--s-5) 0 var(--s-2)">Known limits</h2>
         <ul><li>The 12-month estimate treats every day as 24 hours, so the two daylight-saving days are approximate. Measured in a worst case (a car charging across the changed hour every night), this moves the yearly gap between plans by about 16 cents.</li>
@@ -859,7 +870,7 @@
         <ul style="margin-top:var(--s-4)"><li>Price periods and holidays: ${src('oeb2026', E.SOURCES)}; ${src('oebHolidays', E.SOURCES)}</li>
           ${E.UTILITIES.map(u => `<li>${esc(u.name)}: loss factor ${u.lossFactor}, regulatory charges from ${src(u.regulatory.source, E.UTILITY_SOURCES)}${u.delivery ? '' : '. Delivery rates aren’t in the tool yet; when you check a bill, they come from the bill.'} Monthly charges are prorated by billing days ÷ (365 ÷ 12), which matched a 2026 bill; leap years aren’t confirmed yet.</li>`).join('')}
           <li>File format: NAESB REQ.21 Energy Services Provider Interface (Green Button) schema, version 4.0 (December 13, 2023).</li></ul>
-        <p class="small muted">Open source: <a href="${REPO}" target="_blank" rel="noopener">${REPO.replace('https://', '')}</a></p></section>
+</section>
       ${reportSection}</div>`;
 
     return `<div class="stack">

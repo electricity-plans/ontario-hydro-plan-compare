@@ -54,6 +54,9 @@ test('built page: bundled engine gives the same results as the source modules, t
   const xml = fx('synth-15min-dst-fall.xml');
   eq(JSON.parse(JSON.stringify(ctx.Engine.analyze(xml).history)), JSON.parse(JSON.stringify(analyze(xml).history)));
   new vm.Script(readFileSync(new URL('../app/worker.js', import.meta.url), 'utf8'), { filename: 'app/worker.js' });   // throws on a syntax error
+  // The privacy promise is enforced by the page's security policy: nothing may be sent, fetched or submitted.
+  const csp = (html.match(/<meta http-equiv="Content-Security-Policy" content="([^"]+)"/) || [])[1] || '';
+  for (const rule of ["default-src 'none'", "connect-src 'none'", "form-action 'none'", "base-uri 'none'"]) ok(csp.includes(rule), 'security policy is missing ' + rule);
   new vm.Script(readFileSync(new URL('../app/ui.js', import.meta.url), 'utf8'), { filename: 'app/ui.js' });           // the page code too
   const inBundle = ctx.Engine.runSuite();
   ok(inBundle.every(r => r.status === 'pass'), 'suite inside the bundle: ' + inBundle.filter(r => r.status !== 'pass').map(r => r.name + ': ' + r.message).join('; '));
