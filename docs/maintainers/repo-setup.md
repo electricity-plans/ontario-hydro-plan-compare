@@ -23,7 +23,7 @@ Settings that GitHub keeps outside the files. Tick them off once.
 | `needs-info` | `fbca04` | Waiting for more details from the reporter |
 | `out-of-scope` | `cccccc` | Outside what the tool covers |
 | `good first issue` | `7057ff` | A small, well-defined change for a new contributor |
-| `help-wanted` | `008672` | Help from volunteers is welcome |
+| `help wanted` | `008672` | Help from volunteers is welcome |
 | `accessibility` | `5319e7` | Keyboard, screen reader, zoom or other assistive technology |
 | `tariff-data` | `c5def5` | Prices, rebates, holidays or utility charges |
 | `documentation` | `0075ca` | README, help text or guides |

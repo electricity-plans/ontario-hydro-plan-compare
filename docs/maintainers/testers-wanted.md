@@ -89,7 +89,7 @@ Answers can go in the feedback form or a reply to the pinned discussion.
 **Browser and accessibility testers:** Firefox and Safari, Windows and Mac, keyboard only, a screen reader, high
 zoom, a phone or tablet. Use the **Accessibility problem** form for anything that doesn't work.
 
-**Small tasks for contributors** (label them `good first issue` or `help-wanted`):
+**Small tasks for contributors** (label them `good first issue` or `help wanted`):
 
 - Check one utility's download steps with your own account, and suggest corrected wording (no screenshots of the
   account needed).
