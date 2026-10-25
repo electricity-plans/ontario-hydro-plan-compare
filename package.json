@@ -1,6 +1,6 @@
 {
   "name": "ontario-hydro-plan-compare",
-  "version": "2.0.0-beta.1",
+  "version": "2.0.0-beta.2",
   "description": "Compare Ontario electricity price plans (TOU, ULO, Tiered) using your own Green Button smart-meter data, entirely in the browser.",
   "type": "module",
   "private": true,

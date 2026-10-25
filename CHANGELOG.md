@@ -3,6 +3,18 @@
 Each release says whether **results may change** compared with the previous one, and which **OEB prices** it uses.
 The full verification record is in `docs/verification-v2.0.md`.
 
+## 2.0.0-beta.2
+
+**Prices:** OEB prices from November 1, 2026 (unchanged).
+
+- "Your file stays on this computer – How?" now explains how your privacy is protected, how your browser
+  enforces it, and three ways to check it yourself.
+- How to use the app completely offline, and how to check for new versions.
+- An "About this project" section and an "Open source on GitHub" link.
+- Clearer wording that the project is independent of the OEB, the Government of Ontario and any utility.
+
+**Results may change:** no.
+
 ## 2.0.0-beta.1 (first public beta)
 
 **Prices:** OEB prices from November 1, 2026 (and earlier, back to November 1, 2022, for your past year).

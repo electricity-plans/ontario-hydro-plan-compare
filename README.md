@@ -23,7 +23,7 @@ next 12 months, and how confident that answer is.
 
 Everything runs in your browser. Your usage data is never uploaded anywhere.
 
-> **Version 2.0.0-beta.1.** What's new in each version: [CHANGELOG.md](CHANGELOG.md).
+> **Version 2.0.0-beta.2.** What's new in each version: [CHANGELOG.md](CHANGELOG.md).
 >
 > **Independent.** Not made by, endorsed by or connected to the Ontario Energy Board, the Government of Ontario, or
 > any electricity utility. Utility names are used only to identify them. Results are estimates; your utility's bill
