@@ -243,8 +243,9 @@ async def main():
         async def ux_file():
             await pg.goto(PAGE); await pg.check('input[name=who][value=utility]'); await pg.click('#go-who')
             async with pg.expect_file_chooser() as fc: await pg.click('#choose')
-            await (await fc.value).set_files(REAL or os.path.join(DATA, 'unverified-year.xml')); await pg.wait_for_timeout(150)
-            await pg.click('#cancel-load'); await pg.wait_for_timeout(2500)
+            await (await fc.value).set_files(os.path.join(DATA, 'large-file.xml'))   # large enough to still be loading
+            await pg.wait_for_selector('#cancel-load', state='visible', timeout=5000)
+            await pg.click('#cancel-load', timeout=5000); await pg.wait_for_timeout(2500)
             check('UX "Choose XML file" opens the file chooser, and Cancel stops the loading', await pg.query_selector('#qs') is None and 'Stopped' in (await pg.inner_text('#file-error')))
         async def ux_narrow():
             worst = []

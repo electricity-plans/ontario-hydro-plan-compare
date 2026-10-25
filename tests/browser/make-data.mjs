@@ -32,4 +32,8 @@ writeFileSync(join(dir, 'old-file.xml'), feed({ channels: [{ step: 3600, mult: 0
 for (const [name, xml] of Object.entries(syntheticFiles())) writeFileSync(join(dir, name), xml);   // the made-up test files
 // A household whose cheapest plans are within $20 of each other (a "close" result).
 writeFileSync(join(dir, 'close-plans.xml'), feed({ channels: [{ step: 3600, mult: 0, readings: (() => { const r = []; for (let t = localMidnight('2025-10-01'), end = localMidnight('2026-10-01'); t < end; t += 3600) r.push([t, 3600, 1400]); return r; })() }] }));
+// A large file (two years of 5-minute readings, about 210,000) that takes a few seconds to read, so a test can
+// press Cancel while it loads. Used instead of a real export when none is available (as on GitHub).
+{ const r = []; for (let t = localMidnight('2024-10-01'), end = localMidnight('2026-10-01'); t < end; t += 300) r.push([t, 300, 80 + (t / 300) % 7]);
+  writeFileSync(join(dir, 'large-file.xml'), feed({ channels: [{ step: 300, mult: 0, readings: r }] })); }
 console.log(dir);
