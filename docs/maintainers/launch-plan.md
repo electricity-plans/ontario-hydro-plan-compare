@@ -4,10 +4,10 @@ Start small and deliberate: a beta for a few dozen people first, not a big annou
 
 ## Before launch
 
-- [ ] NVDA run-through done (`docs/verification-v2.0.md`, section 6).
+- [x] NVDA run-through done (`docs/verification-v2.0.md`, section 6).
 - [ ] Five moderated usability sessions done (`docs/usability-test-plan.md`), and anything blocking fixed.
-- [ ] Fresh public repository created from the current files only, with your private GitHub email.
-- [ ] `docs/maintainers/repo-setup.md` checklist done; release `v2.0.0-beta.1` published (`releases.md`).
+- [x] Fresh public repository created from the current files only (`electricity-plans/ontario-hydro-plan-compare`).
+- [x] `docs/maintainers/repo-setup.md` checklist done; releases `v2.0.0-beta.1` and `v2.0.0-beta.2` published (`releases.md`).
 
 ## Week 1
 
