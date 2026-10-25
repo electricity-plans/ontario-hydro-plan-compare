@@ -13,10 +13,14 @@ The version in `package.json` is the one shown at the bottom of every page, so e
    top of `CHANGELOG.md` (template below).
 2. `node tools/build.mjs` and `node tests/run.mjs`; commit both; push; merge to `main` once CI passes. The Pages
    workflow publishes the app.
-3. **Releases → Draft a new release:** tag `v2.0.0-beta.2` (matching `package.json`), paste the changelog entry
-   followed by the release footer below, and **attach `dist/index.html`**, so people can save the app and use it
-   offline. Set **Release label** to **None**, not Pre-release, so the README's "latest release" link finds it.
-4. Open the live app and check the version at the bottom of the page.
+3. **Releases → Draft a new release:** tag `v2.0.0-beta.2` (matching `package.json` exactly, with a `v` in front),
+   paste the changelog entry followed by the release footer below, and set **Release label** to **None**, not
+   Pre-release, so the README's "latest release" link finds it. **Don't attach anything.** Publish.
+4. Within a minute or two, the **release** workflow (Actions) checks that the tag matches `package.json`, that
+   `dist/index.html` is the build of the sources and that the tests pass, then **attaches `dist/index.html`** to the
+   release by itself. If a check fails, nothing is attached: read the reason under Actions, fix it, and re-run the
+   workflow (or delete the release and publish it again).
+5. Open the live app and check the version at the bottom of the page.
 
 ### Changelog entry template
 

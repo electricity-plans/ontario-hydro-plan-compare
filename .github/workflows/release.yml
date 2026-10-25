@@ -1,0 +1,41 @@
+# When a release is published on GitHub, checks it and attaches the app (dist/index.html) to it.
+# Nothing is attached if a check fails; the reason is shown under Actions.
+name: release
+on:
+  release:
+    types: [published]
+permissions:
+  contents: write   # only to add the file to the release
+jobs:
+  attach:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.release.tag_name }}
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: The version in package.json matches the release tag
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          VERSION=$(node -e "console.log(JSON.parse(require('fs').readFileSync('package.json', 'utf8')).version)")
+          if [ "$TAG" != "v$VERSION" ]; then
+            echo "The release tag is $TAG, but package.json says version $VERSION (the tag should be v$VERSION)."
+            exit 1
+          fi
+          echo "Tag $TAG matches package.json version $VERSION."
+      - name: dist/index.html is the build of the current sources
+        run: |
+          BUILD_DATE=$(grep -oE 'Version [^,<]+, [0-9]{4}-[0-9]{2}-[0-9]{2}' dist/index.html | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}$')
+          BUILD_DATE="$BUILD_DATE" node tools/build.mjs
+          git diff --exit-code -- dist/ || { echo "dist/index.html is out of date: run node tools/build.mjs and commit it"; exit 1; }
+      - name: Unit tests
+        run: node tests/run.mjs
+      - name: Attach dist/index.html to the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.release.tag_name }}
+        run: gh release upload "$TAG" dist/index.html --clobber --repo "$GITHUB_REPOSITORY"
